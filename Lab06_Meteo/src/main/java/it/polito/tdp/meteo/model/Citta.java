@@ -1,5 +1,7 @@
 package it.polito.tdp.meteo.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class Citta {
@@ -23,7 +25,18 @@ public class Citta {
 	public String getNome() {
 		return nome;
 	}
-
+   public int getUmiditaGiorno(int mese, int giorno) {
+	   Data data = new Data(2013, mese, giorno);
+	   
+	   DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+	   for(Rilevamento r: rilevamenti) 
+		   if(r!=null) {
+			   String dataS = df.format(r.getData());
+			   if(dataS.contentEquals(data.getData()))
+				   return r.getUmidita();
+		   }
+	   return -1;
+   }
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
